@@ -1,0 +1,34 @@
+table{
+    color: aliceblue;
+    text-align: center;
+    border-collapse: collpse;
+    font: normal;
+}
+tr{
+    height: 16.02vh;
+    background-color:  #4e494e;
+}
+
+td{
+    width: 25w;
+    border: 1px;
+}
+#inputBox{
+    background-color: #4e494e;
+    text-align: right;
+    width: 100%;
+    font-size: 2em;
+    color: #fff;
+    border: 0px;
+
+}
+.digitButton{
+    background-color: #807e80;
+
+}
+.operatorButton{
+    background-color: #ff9e06;
+}
+.ACbutton{
+    background-color: #656156;
+}

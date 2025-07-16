@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <link rel="stylehseet" type="text/css" href="style.css">
+    </head>
+    <body>
+       <h1 id="heading" onclick="changeText()">Javascript</h1> 
+       <p id="addition"></p>
+    
+   <script>
+    //variables declared inside of the fumction do not exist outside of the function
+    //Declare the variable outside of the function(global variable)
+    document.getElementById("addition").innerHTML=addNumbers(35,7);
+
+   function changeText(){
+
+    if(document.getElementById("heading").innerHTML=='Javascript'){
+        document.getElementById("heading").innerHTML='Learning Java bit by bit'
+    }else{
+        document.getElementById("heading").innerHTML='Javascript'
+    }
+   }
+   // functions that have to do with numbers usually have parameters 
+   function addNumbers(num1,num2){
+    return num1 + num2;
+   }
+   </script>
+    </body>
+</html>

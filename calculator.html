@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator app</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <table border="1">
+    <tr>
+      <td colspan="4">
+        <input type="text" id="inputBox" value="0" />
+      </td>
+    </tr>
+
+    <tr>
+      <td class="digitButton" onclick="getTrig('sin')">sin</td>
+      <td class="digitButton" onclick="getTrig('cos')">cos</td>
+      <td class="digitButton" onclick="getTrig('tan')">tan</td>
+      <td class="digitButton" onclick="calculateSpecial('factorial')">x!</td>
+    </tr>
+
+    <tr>
+      <td class="digitButton" onclick="calculateSpecial('reciprocal')">1/x</td>
+      <td class="digitButton" onclick="calculateSpecial('sqrt')">√</td>
+      <td class="digitButton" onclick="calculateSpecial('cbrt')">∛</td>
+      <td class="digitButton" onclick="calculateSpecial('exp10')">10<sup>x</sup></td>
+    </tr>
+
+    <tr>
+      <td class="digitButton" onclick="digitBtnPressed(7)">7</td>
+      <td class="digitButton" onclick="digitBtnPressed(8)">8</td>
+      <td class="digitButton" onclick="digitBtnPressed(9)">9</td>
+      <td class="operatorButton" onclick="operatorBtnPressed('*')">×</td>
+    </tr>
+
+    <tr>
+      <td class="digitButton" onclick="digitBtnPressed(4)">4</td>
+      <td class="digitButton" onclick="digitBtnPressed(5)">5</td>
+      <td class="digitButton" onclick="digitBtnPressed(6)">6</td>
+      <td class="operatorButton" onclick="operatorBtnPressed('-')">−</td>
+    </tr>
+
+    <tr>
+      <td class="digitButton" onclick="digitBtnPressed(1)">1</td>
+      <td class="digitButton" onclick="digitBtnPressed(2)">2</td>
+      <td class="digitButton" onclick="digitBtnPressed(3)">3</td>
+      <td class="operatorButton" onclick="operatorBtnPressed('+')">+</td>
+    </tr>
+
+    <tr>
+      <td class="digitButton" colspan="2" onclick="digitBtnPressed(0)">0</td>
+      <td class="digitButton" onclick="digitBtnPressed('.')">.</td>
+      <td class="operatorButton" onclick="operatorBtnPressed('/')">÷</td>
+    </tr>
+
+    <tr>
+      <td class="digitButton" onclick="calculateSpecial('log')">log</td>
+      <td class="digitButton" onclick="calculateSpecial('ln')">ln</td>
+      <td class="digitButton" onclick="digitBtnPressed('Math.PI')">π</td>
+      <td class="ACButton" onclick="btnACPressed()">AC</td>
+    </tr>
+
+    <tr>
+      <td class="operatorButton" colspan="4" onclick="equalsBtnPressed()">=</td>
+    </tr>
+  </table>
+
+  <script>
+    let newLine = true;
+    let value1;
+    let currentOperator;
+
+    // Add digit or decimal
+    function digitBtnPressed(button) {
+      const input = document.getElementById("inputBox");
+      if (newLine || input.value === "0") {
+        input.value = button;
+      } else {
+        input.value += button;
+      }
+      newLine = false;
+    }
+
+    // Reset calculator
+    function btnACPressed() {
+      document.getElementById("inputBox").value = "0";
+      newLine = true;
+    }
+
+    // Handle +, -, *, /
+    function operatorBtnPressed(operator) {
+      currentOperator = operator;
+      value1 = parseFloat(document.getElementById("inputBox").value);
+      newLine = true;
+    }
+
+    // Calculate result of two values
+    function equalsBtnPressed() {
+      const value2 = parseFloat(document.getElementById("inputBox").value);
+      let result;
+
+      switch (currentOperator) {
+        case "+": result = value1 + value2; break;
+        case "-": result = value1 - value2; break;
+        case "*": result = value1 * value2; break;
+        case "/": result = value2 !== 0 ? value1 / value2 : "Error"; break;
+      }
+
+      document.getElementById("inputBox").value = result;
+      newLine = true;
+    }
+
+    // Trigonometric calculations in degrees
+    function getTrig(func) {
+      const input = document.getElementById("inputBox");
+      let value = parseFloat(input.value);
+      let radians = value * Math.PI / 180;
+      let result;
+
+      switch (func) {
+        case "sin": result = Math.sin(radians); break;
+        case "cos": result = Math.cos(radians); break;
+        case "tan": result = Math.tan(radians); break;
+      }
+
+      input.value = result;
+      newLine = true;
+    }
+
+    // Advanced operations
+    function calculateSpecial(func) {
+      const input = document.getElementById("inputBox");
+      let value = parseFloat(input.value);
+      let result;
+
+      switch (func) {
+        case "factorial":
+          if (value < 0 || !Number.isInteger(value)) {
+            result = "Error";
+          } else {
+            result = 1;
+            for (let i = 2; i <= value; i++) result *= i;
+          }
+          break;
+        case "reciprocal":
+          result = value !== 0 ? 1 / value : "Error";
+          break;
+        case "sqrt":
+          result = value >= 0 ? Math.sqrt(value) : "Error";
+          break;
+        case "cbrt":
+          result = Math.cbrt(value);
+          break;
+        case "exp10":
+          result = Math.pow(10, value);
+          break;
+        case "log":
+          result = value > 0 ? Math.log10(value) : "Error";
+          break;
+        case "ln":
+          result = value > 0 ? Math.log(value) : "Error";
+          break;
+        default:
+          result = "Error";
+      }
+
+      input.value = result;
+      newLine = true;
+    }
+  </script>
+
+</body>
+</html>
